@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreProductRequest extends FormRequest
+class UpdateProductRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,10 +25,9 @@ class StoreProductRequest extends FormRequest
     {
         return [
             //
-            'name'=>'string|required|unique:products|max:255',
+            'name'=>'string|required|unique:products,name,'.
+            $this->route('product')->id.'|max:255',
 
-            'precio_venta'=>'required|numeric',
-            'precio_compra'=>'required|numeric',
 
         ];
     }
@@ -39,13 +38,21 @@ class StoreProductRequest extends FormRequest
             'name.max'=>'solo se permite 255 caracteres',
             'name.unique'=>'El producto ya esta registrado',
 
-            'precio_venta.required'=>'Este campo es requerido',
-            'precio_venta.numeric'=>'Este valor no es numerico',
-
             'precio_compra.required'=>'Este campo es requerido',
             'precio_compra.numeric'=>'Este valor no es numerico',
 
+            'precio_venta.required'=>'Este campo es requerido',
+            'precio_venta.numeric'=>'Este valor no es numerico',
+
+            'category_id.required'=>'Este campo es requerido',
+            'category_id.integer'=>'El valor tiene que ser entero',
+            'category_id.exists'=>'La categoria no existe',
+
+            'Provider_id.required'=>'Este campo es requerido',
+            'Provider_id.integer'=>'El valor tiene que ser entero',
+            'Provider_id.exists'=>'El proveedor no existe',
 
         ];
     }
+
 }

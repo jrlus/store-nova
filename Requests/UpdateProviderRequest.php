@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreProviderRequest extends FormRequest
+class UpdateProviderRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,10 +26,16 @@ class StoreProviderRequest extends FormRequest
         return [
             //
         'name'=>'required|string|max:255',
-        'email'=>'required|email|string|max:255|unique:providers',
-        'rif'=>'required|string|min:11|unique:providers',
+
+        'email'=>'required|email|string|unique:providers,email,'.
+        $this->route('provider')->id.'|max:255',
+
+        'rif'=>'required|string|min:6|unique:providers,rif,'.
+        $this->route('provider')->id.'|max:11',
+
         'address'=>'nullable|string|max:255',
-        'phone'=>'required|numeric|min:11|unique:providers',
+        'phone'=>'required|numeric|unique:providers,phone,'.
+        $this->route('provider')->id.'|min:11',
 
         ];
     }
@@ -46,7 +52,7 @@ class StoreProviderRequest extends FormRequest
 
             'rif.required'=>'Este campo es requerido',
             'rif.string'=>'El valor no es correcto',
-
+            'rif.max'=>'Solo se permite 11 caracteres',
             'rif.min'=>'Se requiere de 11 caracteres',
             'rif.unique'=>'Ya se encuentra registrado',
 
@@ -55,8 +61,8 @@ class StoreProviderRequest extends FormRequest
 
             'phone.required'=>'Este campo es requerido',
             'phone.numeric'=>'El valor no es numerico',
-            'phone.min'=>'Solo se permite 11 caracteres',
 
+            'phone.min'=>'Se requiere de 11 caracteres',
             'phone.unique'=>'Ya se encuentra registrado',
 
         ];
