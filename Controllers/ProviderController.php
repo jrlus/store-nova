@@ -16,7 +16,7 @@ class ProviderController extends Controller
     public function index()
     {
         //
-        $providers=Provider::orderBy('name')->paginate(4);
+        $providers=Provider::get();
         return view('amd.provider.index', compact('providers'));
     }
 

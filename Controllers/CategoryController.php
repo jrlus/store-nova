@@ -6,12 +6,6 @@ use App\Models\Category;
 use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
 use App\Http\Requests\Request;
-use Dompdf\Dompdf;
-use Dompdf\Exception as domException;
-use Dompdf\Options;
-use Dompdf\Css;
-use Barryvdh\DomPDF\Facade\Pdf;
-
 
 
 class CategoryController extends Controller
@@ -24,7 +18,7 @@ class CategoryController extends Controller
     public function index()
     {
         //
-        $categories=Category::orderBy('id')->paginate(5);
+        $categories=Category::orderBy('id')->get();
         return view('amd.category.index', compact('categories'));
     }
 
@@ -102,24 +96,4 @@ class CategoryController extends Controller
         $category->delete();
         return redirect()->route('categories.index');
     }
-
-    public function pdf()
-    {
-        //
-        //$pdf = new DomPdf();
-        $categories=Category::get();
-        $pdf = Pdf::loadView('categories.pdf', compact('categories'));
-
-
-        //$dompdf = new Dompdf();
-        //$dompdf->loadHtml('hello world');
-
-        //return $dompdf->stream();
-        // Get the PDF file
-    //$pdf = dompdf::loadView('categories.pdf');
-
-    // Stream the PDF file to the browser
-    return $pdf->stream('categories.pdf');
-    }
 }
-//

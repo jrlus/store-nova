@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Cliente;
+use App\Models\Client;
 use App\Http\Requests\StoreClientRequest;
 use App\Http\Requests\UpdateClientRequest;
-use App\Models\Client;
+use App\Models\Cliente;
 
 class ClientController extends Controller
 {
@@ -17,12 +17,12 @@ class ClientController extends Controller
     public function index()
     {
         //
-        $clients=Cliente::paginate(4);//dd($clients);
-        return view('amd.client.index', compact('clients'));
+        $clientes=Client::paginate(4);
+        return view('amd.client.index', compact('clientes'));
     }
     public function vender(){
-       // $cliente=Client::get();
-        //return view('amd.vender.vender',compact('cliente'));
+       // $clientes=Client::get();
+        //return view('amd.vender.vender',compact('clientes'));
     }
     /**
      * Show the form for creating a new resource.
@@ -61,7 +61,7 @@ class ClientController extends Controller
     public function show(Cliente $client)
     {
         //
-       // $total_purchases=0;
+        //$total_purchases=0;
        // foreach($client->sales as $key=>$sale){
             //$total_purchases+=$sale->total;
         //}

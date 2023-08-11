@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Product;
+use App\Models\Producto;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use App\Models\Category;
 use App\Models\Provider;
+use App\Http\Requests\Request;
+use App\Models\PurchaseDetails;
 use FontLib\Table\Type\name;
 use Darryldecode\Cart\Cart;
 use Darryldecode\Cart\CartCollection;
@@ -23,13 +25,14 @@ class ProductController extends Controller
         //
         $categories=Category::get();
         $providers=Provider::get();
-        if($categories){
 
-        $products=Product::orderBy('id')->paginate(5);
-        return view('amd.product.index', compact('products','categories','providers'));
+        if($categories){
+        $prod=Producto::get_active_products()->get();//dd($prod);
+        $products=Producto::orderBy('id')->paginate(5);
+        return view('amd.product.index', compact('products','categories','providers','prod'));
         }else{
-            $products=Product::orderBy('id')->paginate(4);
-            return view('amd.product.index', compact('products','categories','providers'));
+            $products=Producto::orderBy('id')->paginate(4);
+            return view('amd.product.index', compact('products','categories','providers','prod'));
         }
     }
 
@@ -56,12 +59,17 @@ class ProductController extends Controller
     {
         //
         //dd($request);
+        $product = Producto::find($request->id);
+        //$product->calculateStock();
         if($request->hasFile('picture')){
             $file=$request->file('picture');
             $image_name=time().'_'.$file->getClientOriginalName();
             $file->move(public_path('/image'),$image_name);
         }
-        $product=Product::create($request->all()+[
+
+        //$product->stock = $product->purchases->0sum('quantity') - $product->sales->sum('quantity');
+        //$product->save();
+        $product=Producto::create($request->all()+[
             'image'=>$image_name,
         ]);
         $product->update(['code'=>$product->id]);
@@ -74,7 +82,7 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function show(Product $product)
+    public function show(Producto $product)
     {
         //
         return view('amd.product.show',compact('product'));
@@ -86,7 +94,7 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function edit(Product $product)
+    public function edit(Producto $product)
     {
         //
 
@@ -102,7 +110,7 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateproductRequest $request, product $product)
+    public function update(UpdateproductRequest $request, producto $product)
     {
         //
 
@@ -111,10 +119,13 @@ class ProductController extends Controller
             $image_name=time().'_'.$file->getClientOriginalName();
             $file->move(public_path('/image'),$image_name);
         }
-        $product->update($request->all()+[
-            'image'=>$image_name,
-        ]);
-        $product->update(['code'=>$product->id]);
+        if($request->hasFile('picture')){
+            $product->update($request->all()+[
+                'image'=>$image_name,
+            ]);
+        }
+
+        $product->update($request->all());
 
 
         return redirect()->route('products.index');
@@ -126,14 +137,14 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Product $product)
+    public function destroy(Producto $product)
     {
         //
         $product->delete();
         return redirect()->route('products.index');
     }
-    public function change_status( Product $product)
-    {
+    public function change_status( Producto $product)
+    {//dd($product);
         //
         if ($product->status=='ACTIVE') {
             $product->update(['status'=>'DESACTIVED']);
@@ -150,6 +161,60 @@ class ProductController extends Controller
     public function pdf(){
      return view('amd.product.tuto1');
     }
+
+    public function updatecart(Request $request){
+        if($request->id && $request->quantity){
+            $cart=session()->get('cart');
+            $cart[$request->id]["quantity"]=$request->quantity;
+            session()->put("cart",$cart);
+            session()->flash('success','Carrito actualizado correctamente');
+        }
+    }
+
+    public function addtocart($id){
+        $purchaseDetails=PurchaseDetails::get($id);
+        $product=Producto::findOrFail($id);
+        $cart=session()->get('cart',[]);dd($product);
+        if(isset($cart[$id])){
+            $cart[$id]['quantity']++;
+        }else{
+            $cart[$id]=[
+                'name'=>$product->name,
+                'quantity'=>1,
+                'price'=>$product->price,
+                'image'=>$product->image,
+
+        ];
+        }
+        session()->put('cart',$cart);
+        return redirect()->back()->with('success','Producto agregado correctamente');
+    }
+    public function cart(){ return view('amd.product.cart');}
+    public function remove(Request $request){
+        if($request->id){
+            $cart=session()->get('cart');
+            if(isset($cart[$request->id])){
+                unset($cart[$request->id]);
+                session()->put('cart',$cart);
+                session()->flash('success','Producto eliminado correctamente');
+            }
+
+        }
+    }
+
+    /*public function get_products_by_id(Request $request){
+        if($request->ajax()){
+            $products=Product::findOrFail($request->product_id);
+            return response()->json($products);
+        }
+    }
+    public function get_products_by_barcode(Request $request){
+        if($request->ajax()){
+            $products=Product::where('code',$request->code)->firstOrFile($request->code);
+            return response()->json($products);
+        }
+    }*/
+
 /********************************************************************
     public  function  shop()
     {
