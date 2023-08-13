@@ -1,5 +1,5 @@
 @extends('layouts.amd')
-@section('title'.'Gestion de categorias')
+@section('title'.'Gestion de visitas')
 @section('styles')
 <style type="text/css">
 .unstyled-button
@@ -10,54 +10,66 @@
 }
 </style>
 @endsection
+@section('create')
 
+@endsection
 @section('options')
-
 @endsection
 @section('preference')
 @endsection
 @section('content')
 <div class="content-wrapper">
     <div class="page-header">
-        <h3 class="page-title">Categorias</h3>
+        <h1 class="page-title">Registro de Visitas<i class="fa fa-warehouse"></i></h1>
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="#">Panel Administrador</a></li>
-                <li class="breadcrumb-item active" aria-current="page">>Categorias</li>
+                <li class="breadcrumb-item active" aria-current="page">Visitas</li>
           </ol>
         </nav>
     </div>
     <div class="row">
+        <li class="nav-item d-none d-lg-flex">
+            @if ($clients)
+                <a class="nav-link" href="{{ route('visitas.create') }}"><span class="btn btn-primary">Registrar Visita</span></a>
+            @else
+                <a class="nav-link disabled" href="{{ route('visitas.create') }}"><span class="btn btn-primary">Registrar Visita</span></a>
+                    <div class="alert alert-danger">
+                        <p><b>Debe ingresar primero un cliente</b></p>
+                    </div>
+            @endif
+        </li>
+
         <div class=" col-lg-12 grid-margin stretch-card">
             <div class="card">
 
-
-<a class="nav-link" href="{{ route('categories.create') }}" data-bs-toggle="modal" data-bs-target="#modalId"><span class="btn btn-primary">Registrar Categoria</span></a>
-
-
                     <div class="table-responsive">
-                        <table  class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <table table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" >
                             <thead>
                                 <tr>
-                                    <th>Id</th>
-                                    <th>Nombre</th>
-                                    <th>Descripcion</th>
-                                    <th>Opciones</th>
+
+                                    <th>Fecha de la visita</th>
+                                    <th>Cliente</th>
+                                    <th>Motivo</th>
+
+
+                                    <th>Acciones</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach($categories as $category)
+                                @foreach($visitas as $visita)
                                 <tr>
-                                    <th scope="row">{{$category->id  }}</th>
+                                    <th scope="row">{{$visita->visita_date  }}</th>
 
                                     <td>
-                                    {{$category->name  }}
+                                    <a href="{{ route('clients.show',$visita->client) }}">{{$visita->client->name  }}</a>
                                     </td>
-                                    <td>{{$category->description  }}</td>
+                                    <td>{{ $visita->motivo }}</td>
+
 
                                     <td style="width: 150px;">
-                                    {!! Form::open(['route'=>['categories.destroy', $category],'method'=>'DELETE'])!!}
-                                    <a class="jsgrig-button jsgrid-edit-button btn btn-primary" href="{{ route('categories.edit',$category) }}" title="Editar">
+                                    {!! Form::open(['route'=>['visitas.destroy', $visita],'method'=>'DELETE'])!!}
+                                    <a class="jsgrig-button jsgrid-edit-button btn btn-primary" href="{{ route('visitas.edit',$visita) }}" title="Editar">
                                         <i class="far fa-edit"></i>
                                     </a>
                                     <button class="jsgrig-button jsgrid-delete-button unstyled-button btn btn-danger" type="submit" title="Eliminar" href="">
@@ -71,7 +83,7 @@
                             </tbody>
 
                         </table>
-                        {{-- $categories->render() --}}
+                        {{ $visitas->render() }}
                     </div>
 
                 </div>
@@ -82,7 +94,6 @@
     </div>
 </div>
 <div><br><br></div>
-@include('amd.category.modal.create')
 @endsection
 @section('scripts')
 

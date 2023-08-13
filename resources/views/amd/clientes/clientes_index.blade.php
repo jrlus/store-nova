@@ -39,7 +39,29 @@
     @endif
         <div class=" col-lg-12 grid-margin stretch-card">
             <div class="card">
+                <!--div class="card-body">
+                    <div-- class="d-flex justify-content-between">
+                        <h4 class="card-title">Clientes</h4>
 
+                        <div class="btn-group">
+                            <h4 class="card-title">
+                                <a href="">
+                                    <i class="fas fa-download"></i>
+                                    Exportar
+                                </a>
+                            </h4>
+                            <a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+                            <i class="fas fa-ellipsis-v"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <a class="dropdown-item" type="button" href="{{ route('clients.create') }}">Agregar</a>
+
+                            <button class="dropdown-item" type="button">Action</button>
+                            <button class="dropdown-item" type="button">Action</button>
+
+                        </div>
+                        </div>
+                    </div-->
 
                     <div class="table-responsive">
                         <table  class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -58,7 +80,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach($clients as $client)
+                                @foreach($clientes as $client)
                                 <tr>
                                     <th scope="row">{{$client->id  }}</th>
 

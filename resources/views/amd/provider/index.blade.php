@@ -11,10 +11,7 @@
 </style>
 @endsection
 @section('create')
-<li class="nav-item d-none d-lg-flex">
-    <a class="nav-link" href="{{ route('providers.create') }}"><span class="btn btn-primary">Crear nuevo</span></a>
 
-</li>
 @endsection
 @section('options')
 @endsection
@@ -23,7 +20,7 @@
 @section('content')
 <div class="content-wrapper">
     <div class="page-header">
-        <h3 class="page-title">Proveedores</h3>
+        <h1 class="page-title">Proveedores<i class="fa fa-users-cog"></i></h1>
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="#">Panel Administrador</a></li>
@@ -32,6 +29,9 @@
         </nav>
     </div>
     <div class="row">
+        <li class="nav-item d-none d-lg-flex">
+            <a class="nav-link" href="{{ route('providers.create') }}"><span class="btn btn-primary">Registrar Proveedor</span></a>
+        </li>
         <div class=" col-lg-12 grid-margin stretch-card">
             <div class="card">
                 {{-- <div class="card-body">
@@ -59,7 +59,7 @@
                     </div> --}}
 
                     <div class="table-responsive">
-                        <table id="order-listing" class="table">
+                        <table  class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                             <thead>
                                 <tr>
                                     <th>Id</th>
@@ -83,12 +83,12 @@
                                     <td>{{$provider->phone  }}</td>
 
 
-                                    <td style="width: 50px;">
+                                    <td style="width: 150px;">
                                     {!! Form::open(['route'=>['providers.destroy', $provider],'method'=>'DELETE'])!!}
-                                    <a class="jsgrig-button jsgrid-edit-button" href="{{ route('providers.edit',$provider) }}" title="Editar">
+                                    <a class="jsgrig-button jsgrid-edit-button btn btn-primary" href="{{ route('providers.edit',$provider) }}" title="Editar">
                                         <i class="far fa-edit"></i>
                                     </a>
-                                    <button class="jsgrig-button jsgrid-delete-button unstyled-button" type="submit" title="Eliminar" href="">
+                                    <button class="jsgrig-button jsgrid-delete-button unstyled-button btn btn-danger" type="submit" title="Eliminar" href="">
                                         <i class="far fa-trash-alt"></i></button>
                                     {!! Form::close()!!}
                                     </td>
@@ -99,7 +99,7 @@
                             </tbody>
 
                         </table>
-
+                        {{-- $providers->render() --}}
                     </div>
 
                 </div>

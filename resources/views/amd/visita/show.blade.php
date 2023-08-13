@@ -1,5 +1,5 @@
 @extends('layouts.amd')
-@section('title'.'Informacion de Proveedores')
+@section('title'.'Informacion de clientes')
 @section('styles')
 
 
@@ -14,12 +14,12 @@
 @section('content')
 <div class="content-wrapper">
     <div class="page-header">
-            <h3 class="page-title">{{ $provider->name }}</h3>
+            <h3 class="page-title">{{ $clientes->name }}</h3>
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="#">Panel Administrador</a></li>
-            <li class="breadcrumb-item"><a href="{{ route('providers.index') }}">Proveedores</a></li>
-                <li class="breadcrumb-item active" aria-current="page">{{ $provider->name }}</li>
+            <li class="breadcrumb-item"><a href="{{ route('clientes.index') }}">clientes</a></li>
+                <li class="breadcrumb-item active" aria-current="page">{{ $clientes->name }}</li>
           </ol>
         </nav>
     </div>
@@ -30,7 +30,7 @@
                         <div class="row">
                         <div class="col-lg-4">
                             <div class="border-bottom text-center pb-4">
-                                <h1>{{ $provider->name }} <i class="fa fa-warehouse"></i></h1>
+                                <h3>Nombre clientes</h3>
 
                         <!--div class="d-flex justify-content-between">
                         </!--div-->
@@ -45,7 +45,7 @@
                             <i class="fas fa-ellipsis-v"></i>
                         </!--a>
                         <div class="dropdown-menu dropdown-menu-right">
-                            <a class="dropdown-item" type="button" href="{{ route('providers.create') }}">Agregar</a>
+                            <a class="dropdown-item" type="button" href="{{ route('clientes.create') }}">Agregar</a>
 
                             <button class="dropdown-item" type="button">Action</button>
                             <button class="dropdown-item" type="button">Action</button>
@@ -55,10 +55,10 @@
                             <div class="border bottom py-4">
                                 <div class="list-group">
                                     <button class="list-group-item list-group-item-action active" type="button">
-                                        Sobre Proveedor
+                                        Sobre cliente
                                     </button>
                                     <button class="list-group-item list-group-item-action " type="button">
-                                        Productos
+                                        Historial de Compras
                                     </button>
                                     <button class="list-group-item list-group-item-action " type="button">
                                         Registrar Productos
@@ -69,7 +69,7 @@
                             <div class="col-lg-8 pl-lg-5">
                                 <div class="d-flex justify-content-between">
                                     <div>
-                                        <h3>Informacion de Proveedor</h3>
+                                        <h3>Informacion de clientes</h3>
                                     </div>
 
                                 </div>
@@ -81,29 +81,34 @@
                                     <strong>
                                         <i class="fab fa-product-hunt"></i> Nombre
                                     </strong>
-                                        <p class="text-muted">{{ $provider->name }}</p>
+                                        <p class="text-muted">{{ $clientes->name }}</p>
+                                    <hr>
+                                    <strong>
+                                        <i class="fas fa-address-card mr-1"></i> Cedula Nro.
+                                    </strong>
+                                        <p class="text-muted">{{ $clientes->cedula }}</p>
                                     <hr>
                                     <strong>
                                         <i class="fas fa-address-card mr-1"></i> RIF
                                     </strong>
-                                        <p class="text-muted">{{ $provider->rif }}</p>
+                                        <p class="text-muted">{{ $clientes->rif }}</p>
                                     <hr>
                                 </div>
                                 <div class="form-group col-md-6">
                                     <strong>
                                         <i class="fas fa-phone-alt mr-1"></i> Telefono
                                     </strong>
-                                        <p class="text-muted">{{ $provider->phone }}</p>
+                                        <p class="text-muted">{{ $clientes->phone }}</p>
                                     <hr>
                                     <strong>
                                         <i class="fas fa-envelope mr-1"></i> Correo
                                     </strong>
-                                        <p class="text-muted">{{ $provider->email }}</p>
+                                        <p class="text-muted">{{ $clientes->email }}</p>
                                     <hr>
                                     <strong>
                                         <i class="fas fa-map-marked-alt mr-1"></i> Direccion
                                     </strong>
-                                        <p class="text-muted">{{ $provider->address }}</p>
+                                        <p class="text-muted">{{ $clientes->address }}</p>
                                     <hr>
                                 </div>
 
@@ -113,7 +118,7 @@
                 </div>
             </div>
             <div class="card-footer text-muted">
-                <a href="{{ route('providers.index') }}" type="button" class="btn btn-primary float-right">Regresar</a>
+                <a href="{{ route('clientes.index') }}" type="button" class="btn btn-primary float-right">Regresar</a>
             </div>
         </div>
     </div>

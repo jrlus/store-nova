@@ -30,7 +30,10 @@
                         <div class="row">
                         <div class="col-lg-4">
                             <div class="border-bottom text-center pb-4">
-                                <img src="{{ asset('image/'.$product->image )}}" class="img-lg " alt="">
+                                <img src="{{ asset('image/'.$product->image )}}"
+                                class="img-lg "
+                                alt=""
+                                style="height: 150px; width: 150px">
                                 <h3>{{ $product->name }}</h3>
 
                         <!--div class="d-flex justify-content-between">
@@ -73,17 +76,10 @@
                                         Status
                                     </span>
                                     <span class="float-right text-muted">
-                                        {{ $product->status }}
+                                        {{ $product->status() }}
                                     </span>
                                 </p>
-                                <p class="clearfix">
-                                    <span class="float-left">
-                                        Proveedor
-                                    </span>
-                                    <span class="float-right text-muted">
-                                        {{ $product->provider->name }}
-                                    </span>
-                                </p>
+
                                 <p class="clearfix">
                                     <span class="float-left">
                                         Categoria
@@ -94,16 +90,19 @@
                                 </p>
                             </div>
                             @if ($product->status=='ACTIVE')
-                            <button class="btn btn-success btn-block">{{ $product->status }}</button>
+                                <a href="{{ route('change_status',$product) }}" class="btn btn-success btn-block">Activo</a>
                             @else
-                            <button class="btn btn-warning btn-block">{{ $product->status }}</button>
+                            <a href="{{ route('change_status',$product) }}" class="btn btn-danger btn-block">Desactivado</a>
                             @endif
 
                         </div>
-                            <div class="col-lg-8 pl-lg-5">
+                            <div class="col-lg-8 pl-lg-5 mt-5 ml-0">
                                 <div class="d-flex justify-content-between">
-                                    <div>
-                                        <h3>Informacion de Producto</h3>
+                                    <div class="col-lg-12 text-center">
+                                        <p class=" text-center pb-4">
+                                            <b><h3>Informacion de Producto</h3></b>
+                                        </p>
+
                                     </div>
 
                                 </div>
@@ -111,7 +110,7 @@
 
                         <div class="profile-feed">
                             <div class="d-flex align-items-start profile-feed-item">
-                                <div class="form-group col-lg-6">
+                                <div class="form-group col-lg-6 mt-3">
                                     <strong>
                                         <i class="fab fa-product-hunt"></i> Codigo
                                     </strong>
@@ -122,13 +121,9 @@
                                     </strong>
                                         <p class="text-muted">{{ $product->name }}</p>
                                     <hr>
-                                    <strong>
-                                        <i class="fas fa-address-card mr-1"></i> Categoria
-                                    </strong>
-                                        <p class="text-muted">{{ $product->category->name }}</p>
-                                    <hr>
+
                                 </div>
-                                <div class="form-group col-md-6">
+                                <div class="form-group mt-3 col-md-6">
                                     <strong>
                                         <i class="fas fa-map-marked-alt mr-1"></i> Stock
                                     </strong>
@@ -138,15 +133,9 @@
                                     <strong>
                                         <i class="fas fa-map-marked-alt mr-1"></i> Precio de venta
                                     </strong>
-                                        <p class="text-muted">{{ $product->price }}</p>
+                                        <p class="text-muted">{{ $product->precio_venta }}</p>
                                     <hr>
 
-
-                                    <strong>
-                                        <i class="fas fa-address-card mr-1"></i> Proveedor
-                                    </strong>
-                                        <p class="text-muted">{{ $product->provider->name }}</p>
-                                    <hr>
                                 </div>
 
                             </div>

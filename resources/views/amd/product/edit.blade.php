@@ -14,7 +14,7 @@
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="#">Panel Administrador</a></li>
-                <li class="breadcrumb-item"><a href="{{ route('products.index') }}">productos</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('products.index') }}">Productos</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Edicion de productos</li>
           </ol>
         </nav>
@@ -24,24 +24,93 @@
             <div class="card">
                 <div class="card-body">
                     <div class="d-flex justify-content-between">
-                        <h4 class="card-title">Edicion de productos</h4>
+                        <h1 class="card-title">Editar producto<i class="fa fa-edit"></i></h1>
                     </div>
                 </div>
 
                 {!! Form::model($product,['route'=>['products.update',$product], 'method'=>'PUT', 'files'=>'true']) !!}
-
+                <!--div-- class="form-group">
+                    <label for="code" class="form-label">Codigo</label>
+                    <input type="text" name="code" id="code" value="{{ $product->code }}"
+                     aria-describedby="helpId" class="form-control @error('code') is-invalid
+                     @enderror" placeholder="" aria-describedby="helpId">
+                     @error('code')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>
+                            {{ $message }}
+                        </strong>
+                    </span>
+                  @enderror
+                  </!--div-->
                 <div class="form-group">
                   <label for="name" class="form-label">Nombre</label>
-                  <input type="text" name="name" id="name" value="{{ $product->name }}" required aria-describedby="helpId" class="form-control" placeholder="" aria-describedby="helpId">
+                  <input type="text" name="name" id="name" value="{{ $product->name }}"
+                   aria-describedby="helpId" class="form-control @error('name') is-invalid
+                   @enderror" placeholder="" aria-describedby="helpId">
+                   @error('name')
+                  <span class="invalid-feedback" role="alert">
+                      <strong>
+                          {{ $message }}
+                      </strong>
+                  </span>
+                @enderror
                 </div>
                 <div class="form-group">
-                  <label for="price" class="form-label">Precio de venta</label>
-                  <input type="number" name="price" id="price" value="{{ $product->price }}" required aria-describedby="helpId" class="form-control" placeholder="" aria-describedby="helpId">
+                    <label for="description" class="form-label">Descripcion</label>
+                    <input type="text" name="description" id="description" value="{{ $product->description }}"
+                     aria-describedby="helpId" class="form-control @error('description') is-invalid
+                     @enderror" placeholder="" aria-describedby="helpId">
+                     @error('description')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>
+                            {{ $message }}
+                        </strong>
+                    </span>
+                  @enderror
+                  </div>
+                  <div class="form-group">
+                    <label for="precio_compra" class="form-label">Precio de compra</label>
+                    <input type="number" name="purchase_price" id="precio_compra" value="{{ $product->precio_compra }}"
+                    aria-describedby="helpId" class="form-control @error('precio_compra') is-invalid
+                    @enderror" placeholder="" aria-describedby="helpId">
+                    @error('precio_compra')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>
+                            {{ $message }}
+                        </strong>
+                    </span>
+                  @enderror
+                  </div>
+                  <div class="form-group">
+                  <label for="precio_venta" class="form-label">Precio de venta</label>
+                  <input type="number" name="precio_venta" id="precio_venta" value="{{ $product->precio_venta }}"
+                  aria-describedby="helpId" class="form-control @error('precio_venta') is-invalid
+                  @enderror" placeholder="" aria-describedby="helpId">
+                  @error('precio_venta')
+                  <span class="invalid-feedback" role="alert">
+                      <strong>
+                          {{ $message }}
+                      </strong>
+                  </span>
+                @enderror
                 </div>
+                <div class="form-group">
+                    <label for="unit" class="form-label">Unidad de medida</label>
+                    <input type="text" name="unit" id="unit" value="{{ $product->unit }}"
+                    aria-describedby="helpId" class="form-control @error('unit') is-invalid
+                    @enderror" placeholder="" aria-describedby="helpId">
+                    @error('unit')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>
+                            {{ $message }}
+                        </strong>
+                    </span>
+                  @enderror
+                  </div>
                 <div class="form-group">
                     <label for="category_id" class="form-label">Categoria</label>
                     <select class="form-control" name="category_id" id="category_id">
-                        <option value="">Seleccionar</option>
+
                         @foreach ($categories as $category )
                         <option value="{{ $category->id }}"
                             @if ($category->id_category == $product->category_id)
@@ -51,22 +120,10 @@
                         @endforeach
                     </select>
                 </div>
-                <div class="form-group">
-                    <label for="provider_id" class="form-label">Proveedor</label>
-                    <select class="form-control" name="provider_id" id="provider_id">
-                        <option value="">Seleccionar</option>
-                        @foreach ($providers as $provider )
-                        <option value="{{ $provider->id }}"
-                            @if ($provider->id_provider == $product->provider_id)
-                                selected
-                            @endif
-                            >{{ $provider->name }}</option>
-                        @endforeach
-                    </select>
-                </div>
+
                 <div class="custom-file mb-4">
-                    <input type="file" class="custom-file-input dropify" id="picture" name="picture">
-                    <label for="image" class="custom-file-label">Seleccionar Archivo</label>
+                    <input type="file" value="{{ $product->image }}" class="custom-file-input dropify" id="picture" name="picture">
+                    <label for="picture" class="custom-file-label">Seleccionar para cambiar la imagen: {{ $product->image }}</label>
 
                 </div>
 

@@ -14,8 +14,8 @@
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="#">Panel Administrador</a></li>
-                <li class="breadcrumb-item"><a href="{{ route('providers.index') }}">proveedores</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Registro de proveedores</li>
+                <li class="breadcrumb-item"><a href="{{ route('providers.index') }}">Proveedores</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Registrar proveedor</li>
           </ol>
         </nav>
     </div>
@@ -24,29 +24,76 @@
             <div class="card">
                 <div class="card-body">
                     <div class="d-flex justify-content-between">
-                        <h4 class="card-title">Registro de proveedores</h4>
+                        <h1 class="card-title">Registrar proveedor <i class="fa fa-user-alt"></i></h1>
                     </div>
                 </div>
                 {!! Form::open(['route'=>'providers.store', 'method'=>'post']) !!}
                 <div class="form-group">
                   <label for="name" class="form-label">Name</label>
-                  <input type="text" name="name" id="name" required aria-describedby="helpId" class="form-control" placeholder="" aria-describedby="helpId">
+                  <input type="text" name="name" id="name"  aria-describedby="helpId"
+                  class="form-control @error('name') is-invalid
+                  @enderror" placeholder="" aria-describedby="helpId">
+
+                  @error('name')
+                  <span class="invalid-feedback" role="alert">
+                      <strong>
+                          {{ $message }}
+                      </strong>
+                  </span>
+                @enderror
                 </div>
                 <div class="form-group">
                   <label for="email" class="form-label">Email</label>
-                  <input type="email" name="email" id="email" required aria-describedby="helpId" class="form-control" placeholder="" aria-describedby="helpId">
+                  <input type="email" name="email" id="email"  aria-describedby="helpId"
+                  class="form-control @error('email') is-invalid
+                  @enderror" placeholder="example@gmail.com" aria-describedby="helpId">
+                  @error('email')
+                  <span class="invalid-feedback" role="alert">
+                      <strong>
+                          {{ $message }}
+                      </strong>
+                  </span>
+                @enderror
                 </div>
                 <div class="form-group">
                   <label for="rif" class="form-label">Rif</label>
-                  <input type="number" name="rif" id="rif" required aria-describedby="helpId" class="form-control" placeholder="" aria-describedby="helpId">
+                  <input type="number" name="rif" id="rif"  aria-describedby="helpId"
+                  class="form-control @error('rif') is-invalid
+                  @enderror" placeholder=" ingrese hasta 11 digitos" aria-describedby="helpId">
+                  @error('rif')
+                  <span class="invalid-feedback" role="alert">
+                      <strong>
+                          {{ $message }}
+                      </strong>
+                  </span>
+                @enderror
                 </div>
                 <div class="form-group">
                     <label for="address" class="form-label">Direccion</label>
-                    <input type="text" name="address" required id="address" aria-describedby="helpId" class="form-control" placeholder="" aria-describedby="helpId">
+                    <input type="text" name="address"  id="address" aria-describedby="helpId"
+                    class="form-control @error('address') is-invalid
+                    @enderror" placeholder="" aria-describedby="helpId">
+                  @error('address')
+                  <span class="invalid-feedback" role="alert">
+                      <strong>
+                          {{ $message }}
+                      </strong>
+                  </span>
+                @enderror
+
                   </div>
                   <div class="form-group">
                     <label for="phone" class="form-label">Telefono/Celular</label>
-                    <input type="number" name="phone" required id="phone" aria-describedby="helpId" class="form-control" placeholder="" aria-describedby="helpId">
+                    <input type="number" name="phone"  id="phone" aria-describedby="helpId"
+                    class="form-control @error('phone') is-invalid
+                    @enderror" placeholder="" aria-describedby="helpId">
+                  @error('phone')
+                  <span class="invalid-feedback" role="alert">
+                      <strong>
+                          {{ $message }}
+                      </strong>
+                  </span>
+                @enderror
                   </div>
 
 

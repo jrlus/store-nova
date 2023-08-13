@@ -14,7 +14,7 @@
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="#">Panel Administrador</a></li>
-                <li class="breadcrumb-item"><a href="{{ route('clients.index') }}">clientes</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('clientes.index') }}">clientes</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Registro de clientes</li>
           </ol>
         </nav>
@@ -32,7 +32,7 @@
     @endif
                     </div>
                 </div>
-                {!! Form::open(['route'=>'clients.store', 'method'=>'post']) !!}
+                {!! Form::open(['route'=>'clientes.store', 'method'=>'post']) !!}
                 <div class="form-group">
                   <label for="name" class="form-label">Nombre</label>
                   <input type="text" name="name" id="name"  aria-describedby="helpId"
@@ -116,7 +116,7 @@
 
 
                 <button type="submit" class="btn btn-primary mr-2">Registrar</button>
-                <a href="{{ route('clients.index') }}" class="btn btn-danger">Cancelar</a>
+                <a href="{{ route('clientes.index') }}" class="btn btn-danger">Cancelar</a>
             {!! Form::close() !!}
             </div>
         </div>

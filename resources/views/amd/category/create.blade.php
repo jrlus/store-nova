@@ -41,5 +41,4 @@
 </div>
 @endsection
 @section('scripts')
-{!! Html::script('') !!}
 @endsection
