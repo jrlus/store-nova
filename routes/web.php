@@ -17,6 +17,8 @@ use App\Http\Controllers\ClientesController;
 use App\Http\Controllers\ProductosController;
 use App\Http\Controllers\VentasController;
 use App\Http\Controllers\VenderController;
+use App\Http\Controllers\ComprarController;
+use App\Http\Controllers\ComprasController;
 
 
 use Barryvdh\DomPdf\Facade\Pdf;
@@ -78,7 +80,7 @@ Route::get('products/change_status/{product}',[ProductController::class, 'change
 Route::get('purchases/upload/{purchase}',[PurchaseController::class,'upload'])->name('upload.purchases');
 Route::resource('shopping_cart_detail','ShoppingCartDetailController')->only('store','update','destroy')->names('shopping_cart_details');
 
-        Route::resource("clientes", ClientesController::class);
+        Route::resource("clientes", ClientesController::class)->names('clientes');
         Route::resource("usuarios", UserController::class)->parameters(["usuarios" => "user"]);
         Route::resource("productos", ProductosController::class);
         Route::get("/ventas/ticket", [VentasController::class,'ticket'])->name("ventas.ticket");
@@ -87,6 +89,13 @@ Route::resource('shopping_cart_detail','ShoppingCartDetailController')->only('st
         Route::post("/productoDeVenta", [VenderController::class, 'agregarProductoVenta'])->name("agregarProductoVenta");
         Route::delete("/productoDeVenta", [VenderController::class,'quitarProductoDeVenta'])->name("quitarProductoDeVenta");
         Route::post("/terminarOCancelarVenta", [VenderController::class, 'terminarOCancelarVenta'])->name("terminarOCancelarVenta");
+
+        Route::resource("compras", ComprasController::class);
+        Route::get("/comprar", [ComprarController::class, 'index'])->name("comprar.index");
+        Route::post("/productoDeCompra", [ComprarController::class, 'agregarProductoCompra'])->name("agregarProductoCompra");
+        Route::delete("/productoDeCompra", [ComprarController::class,'quitarProductoDeCompra'])->name("quitarProductoDeCompra");
+        Route::post("/terminarOCancelarCompra", [ComprarController::class, 'terminarOCancelarCompra'])->name("terminarOCancelarCompra");
+
 
 Auth::routes();
 
