@@ -29,16 +29,14 @@ use Illuminate\Database\Eloquent\Model;
 class Producto extends Model
 {
     protected $fillable = [
-
-
         'code',
         'name',
         'description',
-        'stock',//existencia
+        'stock',
         'image',
-        'precio_compra',//precio de compra
-        'precio_venta',//precio de venta
-        'unit',//unidad de tipo de producto, grams, litros, onzas, sacos, cajas etc.
+        'precio_compra',
+        'precio_venta',
+        'unit',
         'status',
         'category_id',
     ];
