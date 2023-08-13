@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePurchaseDetailsTable extends Migration
+class CreateShoppingCartDetailsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,18 +13,14 @@ class CreatePurchaseDetailsTable extends Migration
      */
     public function up()
     {
-        Schema::create('purchase_details', function (Blueprint $table) {
+        Schema::create('shopping_cart_details', function (Blueprint $table) {
             $table->id();
-            $table->integer('quantity');
-            $table->decimal('price');//precio
-            $table->string('invoice_code');
-            $table->text('observation');
-            $table->enum('status',['VALID','CANCELED'])->default('VALID');
-            $table->unsignedBigInteger('purchase_id');
-            $table->foreign('purchase_id')->references('id')->on('purchases');
+            $table->decimal('price');
+            $table->decimal('quantity')->default(1);
+            $table->unsignedBigInteger('shopping_cart_id');
+            $table->foreign('shopping_cart_id')->references('id')->on('shopping_carts');
             $table->unsignedBigInteger('product_id');
             $table->foreign('product_id')->references('id')->on('products');
-
             $table->timestamps();
         });
     }
@@ -36,6 +32,6 @@ class CreatePurchaseDetailsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('purchase_details');
+        Schema::dropIfExists('shopping_cart_details');
     }
 }

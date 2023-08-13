@@ -17,7 +17,7 @@ class CreateSaleDetailsTable extends Migration
             $table->id();
             $table->integer('quantity');
             $table->decimal('price');//precio
-            $table->decimal('discount');//descuentto
+            $table->decimal('discount')->nullable();//descuentto
 
 
             $table->enum('status',['VALID','CANCELED'])->default('VALID');

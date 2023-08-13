@@ -15,15 +15,15 @@ class CreateSalesTable extends Migration
     {
         Schema::create('sales', function (Blueprint $table) {
             $table->id();
-            $table->dateTime('sale_date');
+            $table->dateTime('sale_date');//fecha de venta
             $table->decimal('tax');//Impuesto
             $table->decimal('total');
 
             $table->enum('status',['VALID','CANCELED'])->default('VALID');
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
-            $table->unsignedBigInteger('client_id');
-            $table->foreign('client_id')->references('id')->on('clients');
+            //$table->unsignedBigInteger('client_id');
+            //$table->foreign('client_id')->references('id')->on('clients');
 
             $table->timestamps();
         });

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class PurchaseDetails extends Migration
+class AgregarIdProviderCompras extends Migration
 {
     /**
      * Run the migrations.
@@ -14,10 +14,14 @@ class PurchaseDetails extends Migration
     public function up()
     {
         //
-        //Schema::create('purchase_details', function (Blueprint $table) {
-          //  $table->id();
-            //$table->timestamps();
-       // });
+        Schema::table('compras', function (Blueprint $table) {
+            $table->unsignedBigInteger('id_provider');
+            $table->foreign("id_provider")
+                ->references("id")
+                ->on("providers")
+                ->onDelete("cascade")
+                ->onUpdate("cascade");
+        });
     }
 
     /**
@@ -28,6 +32,5 @@ class PurchaseDetails extends Migration
     public function down()
     {
         //
-     //   Schema::dropIfExists('purchase_details');
     }
 }

@@ -19,7 +19,7 @@ class CreatePurchasesTable extends Migration
             $table->decimal('tax');//Impuesto
             $table->decimal('total');
             $table->string('picture')->nullable();
-            $table->decimal('sell_price',12,2);
+            $table->decimal('price',12,2);
             $table->enum('status',['VALID','CANCELED'])->default('VALID');
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');

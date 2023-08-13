@@ -19,7 +19,7 @@ class CreateProductsTable extends Migration
             $table->string('name')->unique();
             $table->string('description')->nullable();
             $table->integer('stock')->default(0);//existencia
-            $table->string('image');
+            $table->string('image')->nullable();
             $table->float('precio',12,2);//precio de venta
             $table->float('purchase_price',12,2);//precio  de compra
             $table->string('unit');
